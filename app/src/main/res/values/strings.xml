@@ -1,10 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App -->
     <string name="app_name">Pokedex Kotlin</string>
-    <string name="pokemon_image">Pokemon Image</string>
-    <string name="characteristic_label">Characteristic</string>
-    <string name="characteristic_not_found">Characteristic not available</string>
-    <string name="stats_label">Base Stats</string>
-    <string name="type_hint">Type</string>
-    <string name="generation_hint">Generation</string>
-    <string name="loading_message">Carregando...</string>
+
+    <!-- Drawer / Menu -->
+    <string name="menu_about">About</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_exit">Exit</string>
+    <string name="drawer_open">Abrir menu</string>
+    <string name="drawer_close">Fechar menu</string>
+
+    <!-- Main / generic -->
+    <string name="title_pokedex">Pokedex</string>
+    <string name="search_hint">Buscar Pokémon...</string>
+    <string name="loading_pokemon">Carregando Pokémon...</string>
+    <string name="no_results">Nenhum Pokémon encontrado</string>
+
+    <string name="about_title">Sobre</string>
+    <string name="about_photo_desc">Foto do desenvolvedor</string>
+    <string name="about_name_text">Rafael Femina</string>
+    <string name="about_age_desc">Idade</string>
+    <string name="about_age_text">35 anos</string>
+    <string name="about_education_desc">Formação</string>
+    <string name="about_education_text">Sistemas de Informação - FHO</string>
+    <string name="about_github_desc">GitHub</string>
+    <string name="about_github_text">https://github.com/rfemina</string>
+    <string name="about_github_url">https://github.com/rfemina</string>
+    <string name="about_open_github">Abrir GitHub</string>
+    <!-- Pokemon detail (evita outros missing strings) -->
+    <string name="pokemon_detail_title">Detalhes do Pokémon</string>
+    <string name="pokemon_image">Imagem do Pokémon</string>
+    <string name="pokemon_number">Nº</string>
+    <string name="pokemon_types">Tipos</string>
+    <string name="characteristic_label">Características</string>
+    <string name="stats_label">Status</string>
+    <string name="characteristic_not_found">Características não encontradas</string>
+    <string name="abilities_label">Habilidades</string>
+    <string name="moves_label">Movimentos</string>
+
+    <string name="structure_card_title">Entenda a estrutura do projeto</string>
+    <string name="structure_overlay_title">Estrutura do projeto</string>
+    <string name="close">Fechar</string>
+    <string name="structure_icon_desc">Ícone de estrutura</string>
+    <string name="open_more">Abrir</string>
+    <string name="item_icon_desc">Ícone de item</string>
+
+    <string name="back">Voltar</string>
+    <string name="navigation_drawer_open">Abrir menu</string>
+    <string name="navigation_drawer_close">Fechar menu</string>
+
+
+    <!-- misc -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
+    <string name="error_loading">Erro ao carregar dados</string>
 </resources>

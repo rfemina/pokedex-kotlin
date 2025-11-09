@@ -1,0 +1,12 @@
+<resources>
+    <!-- tamanho da foto -->
+    <dimen name="about_photo_size">200dp</dimen>
+    <dimen name="about_photo_radius">100dp</dimen>
+
+    <!-- queremos que o card fique abaixo da foto com 30dp de gap;
+         o NestedScrollView usa paddingTop = about_card_offset -->
+    <!-- about_card_offset = metade da foto (overlap) + 30dp gap -->
+    <dimen name="about_card_offset">130dp</dimen> <!-- 200/2 = 100 + 30 = 130 -->
+
+    <dimen name="about_top_height">220dp</dimen>
+</resources>

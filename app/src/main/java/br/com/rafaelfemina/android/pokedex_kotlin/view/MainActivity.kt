@@ -1,16 +1,25 @@
 package br.com.rafaelfemina.android.pokedex_kotlin.view
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.FrameLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,6 +40,8 @@ import kotlin.math.min
 
 class MainActivity : AppCompatActivity() {
 
+    // --- Views principais ---
+    private val drawerLayout by lazy { findViewById<DrawerLayout>(R.id.drawer_layout) }
     private val recyclerView by lazy { findViewById<RecyclerView>(R.id.rvPokemons) }
     private val spinnerType by lazy { findViewById<AutoCompleteTextView>(R.id.spinner_type) }
     private val spinnerGeneration by lazy { findViewById<AutoCompleteTextView>(R.id.spinner_generation) }
@@ -42,6 +53,10 @@ class MainActivity : AppCompatActivity() {
     private val fullscreenMessage by lazy { findViewById<TextView>(R.id.fullscreen_message) }
     private val fullscreenProgress by lazy { findViewById<ProgressBar>(R.id.fullscreen_progress) }
 
+    // toggle do drawer
+    private var drawerToggle: ActionBarDrawerToggle? = null
+
+    // --- ViewModel / Adapter / caches ---
     private val viewModel by lazy {
         ViewModelProvider(this, PokemonViewModelFactory())
             .get(PokemonViewModel::class.java)
@@ -69,6 +84,40 @@ class MainActivity : AppCompatActivity() {
         // Toolbar
         setSupportActionBar(toolbar)
         supportActionBar?.title = "Pokedex"
+
+        // configura o ActionBarDrawerToggle (ícone à esquerda)
+        drawerToggle = ActionBarDrawerToggle(
+            this,
+            drawerLayout,
+            toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
+        drawerLayout.addDrawerListener(drawerToggle!!)
+        drawerToggle?.syncState()
+
+        // configure navigation view listener (menu items)
+        val navView = findViewById<NavigationView>(R.id.navigation_view)
+        navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_about -> {
+                    // abrir AboutActivity com transição simples
+                    val intent = Intent(this, AboutActivity::class.java)
+                    startActivity(intent)
+                    // animação simples: fade in / fade out
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+
+                R.id.nav_exit -> {
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    finishAffinity() // fecha app
+                    true
+                }
+                else -> false
+            }
+        }
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
@@ -104,6 +153,21 @@ class MainActivity : AppCompatActivity() {
         setupSearch()
     }
 
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        // certificar que o estado do toggle está sincronizado
+        drawerToggle?.syncState()
+    }
+
+    @SuppressLint("GestureBackNavigation")
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+            return
+        }
+        super.onBackPressed()
+    }
+
     // ---------- SEARCH ----------
     private fun setupSearch() {
         searchEditText.addTextChangedListener(object : TextWatcher {
@@ -134,7 +198,6 @@ class MainActivity : AppCompatActivity() {
 
     // ---------- DROPDOWNS (preenchimento + comportamento de tocar/abrir) ----------
     private fun setupTypeDropdown() {
-        // garantia: abrir dropdown ao clicar/focar
         spinnerType.threshold = 0
         spinnerType.setOnClickListener { spinnerType.showDropDown() }
         spinnerType.setOnFocusChangeListener { v, hasFocus -> if (hasFocus) spinnerType.showDropDown() }
@@ -157,7 +220,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupGenerationDropdown() {
-        // garantia: abrir dropdown ao clicar/focar
         spinnerGeneration.threshold = 0
         spinnerGeneration.setOnClickListener { spinnerGeneration.showDropDown() }
         spinnerGeneration.setOnFocusChangeListener { v, hasFocus -> if (hasFocus) spinnerGeneration.showDropDown() }
@@ -178,7 +240,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // ---------- FILTER / PREFETCH / OVERLAY (mantive tudo igual) ----------
+    // ---------- FILTER / PREFETCH ----------
     private suspend fun loadTypeFilter(selected: String) {
         if (selected.equals("All", ignoreCase = true)) {
             applyFilters()

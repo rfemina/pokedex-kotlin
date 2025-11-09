@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Itens para a tela de Estrutura do Projeto -->
+    <string-array name="structure_items">
+        <item>Criação do RecyclerView</item>
+        <item>Implementação do Adapter</item>
+        <item>Layout dos cards</item>
+        <item>Integração com API Pokémon</item>
+        <item>Filtro por tipos e gerações</item>
+        <item>Drawer menu e AboutActivity</item>
+        <item>Detalhes do Pokémon e navegação</item>
+        <item>Configuração de cores e temas</item>
+        <item>Implementação do ProgressBar e carregamento assíncrono</item>
+        <item>Link externo para GitHub</item>
+    </string-array>
+</resources>
