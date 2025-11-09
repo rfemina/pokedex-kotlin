@@ -2,10 +2,12 @@ package br.com.rafaelfemina.android.pokedex_kotlin.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import br.com.rafaelfemina.android.pokedex_kotlin.R
-import com.airbnb.lottie.LottieAnimationView
-import com.airbnb.lottie.LottieDrawable
+import com.bumptech.glide.Glide
 
 class SplashActivity : AppCompatActivity() {
 
@@ -13,15 +15,16 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        val animationView = findViewById<LottieAnimationView>(R.id.lottieView)
+        val splashGif = findViewById<ImageView>(R.id.splashPokemonGif)
 
-        animationView.setAnimationFromUrl("https://lottie.host/c075318c-15ac-4248-96f3-b1bf4f8bf9be/67xRB7WE9U.lottie")
-        animationView.repeatCount = LottieDrawable.INFINITE
-        animationView.speed = 3f
-        animationView.playAnimation()
+        // Carrega o GIF animado usando Glide
+        Glide.with(this)
+            .asGif()
+            .load(R.drawable.ash_anim)
+            .into(splashGif)
 
         // Aguarda 3 segundos e abre a MainActivity
-        animationView.postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }, 3000)
