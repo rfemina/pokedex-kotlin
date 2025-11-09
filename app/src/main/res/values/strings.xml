@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Pokedex Kotlin</string>
+    <string name="pokemon_image">Pokemon Image</string>
+    <string name="characteristic_label">Characteristic</string>
+    <string name="characteristic_not_found">Characteristic not available</string>
+    <string name="stats_label">Base Stats</string>
+    <string name="type_hint">Type</string>
+    <string name="generation_hint">Generation</string>
+    <string name="loading_message">Carregando...</string>
+</resources>
