@@ -19,7 +19,7 @@ Além disso, serve como estudo de arquitetura **MVVM** e integração com APIs e
 
 ---
 
-## 🏗 Arquitetura
+🏗 **Arquitetura**
 
 O projeto segue o padrão **MVVM (Model-View-ViewModel)**, organizado da seguinte forma:
 
@@ -36,10 +36,10 @@ Copiar código
 
 **Fluxo resumido:**
 
-1. `View` observa o `ViewModel` via LiveData.
-2. `ViewModel` solicita dados do `Repository`.
-3. `Repository` consome a API ou recursos locais.
-4. Dados retornam e a `View` atualiza automaticamente.
+1. **View** observa o **ViewModel** via LiveData.
+2. **ViewModel** solicita dados do **Repository**.
+3. **Repository** consome a API ou recursos locais.
+4. Dados retornam e a **View** atualiza automaticamente.
 
 ---
 
